@@ -11,16 +11,16 @@ const {
 
 // dummy data
 let tshirts = [
-    { shirtType: 'Polo', size: 'XS', color: 'Blue', upc: 00001, id: '1' },
-    { shirtType: 'Henley', size: 'S', color: 'Black', upc: 00002, id: '2' },
-    { shirtType: 'V-neck', size: 'M', color: 'White', upc: 00003, id: '3' },
-    { shirtType: 'Striped', size: 'XL', color: 'Grey', upc: 00004, id: '4' },
-    { shirtType: 'Polo', size: 'XXL', color: 'Green', upc: 00005, id: '5' },
-    { shirtType: 'Henley', size: 'XS', color: 'Red', upc: 00010, id: '6' },
-    { shirtType: 'V-neck', size: 'M', color: 'Orange', upc: 00020, id: '7' },
-    { shirtType: 'Hooded', size: 'L', color: 'Purple', upc: 00030, id: '8' },
-    { shirtType: 'Crew Neck', size: 'XL', color: 'Green', upc: 00040, id: '9' },
-    { shirtType: 'Crew Nec', size: 'XXL', color: 'Blue', upc: 00050, id: '10' }
+    { shirtType: 'Polo', color: 'Blue', upc: 00001, id: '1', sizeId: '1' },
+    { shirtType: 'Henley', color: 'Black', upc: 00002, id: '2', sizeId: '2' },
+    { shirtType: 'V-neck', color: 'White', upc: 00003, id: '3', sizeId: '3' },
+    { shirtType: 'Striped', color: 'Grey', upc: 00004, id: '4', sizeId: '5' },
+    { shirtType: 'Polo', color: 'Green', upc: 00005, id: '5', sizeId: '6' },
+    { shirtType: 'Henley', color: 'Red', upc: 00010, id: '6', sizeId: '1' },
+    { shirtType: 'V-neck', color: 'Orange', upc: 00020, id: '7', sizeId: '3' },
+    { shirtType: 'Hooded', color: 'Purple', upc: 00030, id: '8', sizeId: '4' },
+    { shirtType: 'Crew Neck', color: 'Green', upc: 00040, id: '9', sizeId: '5' },
+    { shirtType: 'Crew Nec', color: 'Blue', upc: 00050, id: '10', sizeId: '6' }
 ]
 
 let clothingSize = [
@@ -32,16 +32,23 @@ let clothingSize = [
     { name: 'Extra Extra Large', id: '6' },
 ]
 
+let colors = [
+    { name: 'white', id: '1'},
+    { name: 'black', id: '2'},
+    { name: 'beige', id: '3'},
+    { name: 'tan', id: '4'}
+]
+
 let pants = [
-    { pantType: 'Baggy Pants', size: 'XS', color: 'Black', upc: 10000, id: '1' },
-    { pantType: 'Bell Bottoms', size: 'S', color: 'Blue', upc: 20000, id: '2' },
-    { pantType: 'Culottes', size: 'M', color: 'Green', upc: 30000, id: '3' },
-    { pantType: 'Fatigue Trousers', size: 'L', color: 'Red', upc: 40000, id: '4' },
-    { pantType: 'Jeans', size: 'XL', color: 'Dark Green', upc: 50000, id: '5' },
-    { pantType: 'Harem Pants', size: 'XXL', color: 'Dark Blue', upc: 60000, id: '6' },
-    { pantType: 'Hot Pants', size: 'M', color: 'Beige', upc: 70000, id: '7' },
-    { pantType: 'Jodhpurs', size: 'L', color: 'Brown', upc: 80000, id: '8' },
-    { pantType: 'Sweat Pants', size: 'XS', color: 'Grey', upc: 90000, id: '9' },
+    { pantType: 'Baggy Pants', colorId: '1', upc: 12345, id: '1', sizeId: '1' },
+    { pantType: 'Bell Bottoms', colorId: '2', upc: 22345, id: '2', sizeId: '2' },
+    { pantType: 'Culottes', colorId: '3', upc: 32345, id: '3', sizeId: '3' },
+    { pantType: 'Fatigue Trousers', colorId: '4', upc: 42345, id: '4', sizeId: '4' },
+    { pantType: 'Jeans', colorId: '1', upc: 52345, id: '5', sizeId: '5' },
+    { pantType: 'Harem Pants', colorId: '2', upc: 62345, id: '6', sizeId: '6' },
+    { pantType: 'Hot Pants', colorId: '3', upc: 72345, id: '7', sizeId: '3' },
+    { pantType: 'Jodhpurs', colorId: '4', upc: 82345, id: '8', sizeId: '4' },
+    { pantType: 'Sweat Pants', colorId: '5', upc: 92345, id: '9', sizeId: '1' },
 ]
 
 
@@ -51,9 +58,21 @@ const TshirtType = new GraphQLObjectType({
     fields: () => ({
         id: { type: GraphQLID },
         shirtType: { type: GraphQLString },
-        size: { type: GraphQLString },
-        color: { type: GraphQLString },
-        upc: { type: GraphQLInt }
+        upc: { type: GraphQLInt },
+        size: {
+            type: SizeType,
+            resolve(parent, args){
+                console.log(parent);
+                return _.find(clothingSize, { id: parent.sizeId});
+            }
+        },
+        color: {
+            type: ColorType,
+            resolve(parent, args){
+                console.log(parent);
+                return _.find(colors, { id: parent.colorId})
+            }
+        }
     })
 });
 
@@ -70,6 +89,14 @@ const PantType = new GraphQLObjectType({
 
 const SizeType = new GraphQLObjectType({
     name: 'Size',
+    fields: () => ({
+        id: { type: GraphQLID },
+        name: { type: GraphQLString }
+    })
+});
+
+const ColorType = new GraphQLObjectType({
+    name: 'Color',
     fields: () => ({
         id: { type: GraphQLID },
         name: { type: GraphQLString }
@@ -102,6 +129,14 @@ const RootQuery = new GraphQLObjectType({
             resolve(parent, args) {
                 // code to get data from db / other source
                 return _.find(clothingSize, { id: args.id })
+            }
+        },
+        color: {
+            type: ColorType,
+            args: { id: { type: GraphQLID } },
+            resolve(parent, args) {
+                // code to get data from db / other source
+                return _.find(colors, { id: args.id })
             }
         }
     }
