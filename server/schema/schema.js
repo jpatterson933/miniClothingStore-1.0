@@ -10,7 +10,7 @@ const {
 } = graphql;
 
 // dummy data
-var tshirts = [
+let tshirts = [
     { shirtType: 'Polo', size: 'XS', color: 'Blue', upc: 00001, id: '1' },
     { shirtType: 'Henley', size: 'M', color: 'Black', upc: 00002, id: '2' },
     { shirtType: 'V-neck', size: 'L', color: 'White', upc: 00003, id: '3' },
@@ -23,11 +23,35 @@ var tshirts = [
     { shirtType: 'U Neck/Scoop Neck', size: 'XXL', color: 'Blue', upc: 00050, id: '10' }
 ]
 
+let pants = [
+    { pantType: 'Baggy Pants', size: 'XS', color: 'Black', upc: 10000, id: '1'},
+    { pantType: 'Bell Bottoms', size: 'S', color: 'Blue', upc: 20000, id: '2'},
+    { pantType: 'Culottes', size: 'M', color: 'Green', upc: 30000, id: '3'},
+    { pantType: 'Fatigue Trousers', size: 'L', color: 'Red', upc: 40000, id: '4'},
+    { pantType: 'Jeans', size: 'XL', color: 'Dark Green', upc: 50000, id: '5'},
+    { pantType: 'Harem Pants', size: 'XXL', color: 'Dark Blue', upc: 60000, id: '6'},
+    { pantType: 'Hot Pants', size: 'M', color: 'Beige', upc: 70000, id: '7'},
+    { pantType: 'Jodhpurs', size: 'L', color: 'Brown', upc: 80000, id: '8'},
+    { pantType: 'Sweat Pants', size: 'XS', color: 'Grey', upc: 90000, id: '9'},
+
+]
+
 const TshirtType = new GraphQLObjectType({
     name: 'Tshirt',
     fields: () => ({
         id: { type: GraphQLID },
         shirtType: { type: GraphQLString },
+        size: { type: GraphQLString },
+        color: { type: GraphQLString },
+        upc: { type: GraphQLInt }
+    })
+});
+
+const PantType = new GraphQLObjectType({
+    name: 'Pant',
+    fields: () => ({
+        id: { type: GraphQLID },
+        pantType: { type: GraphQLString},
         size: { type: GraphQLString },
         color: { type: GraphQLString },
         upc: { type: GraphQLInt }
@@ -43,6 +67,15 @@ const RootQuery = new GraphQLObjectType({
             resolve(parent, args) {
                 // code to get data from db / other source
                 return _.find(tshirts, { id: args.id });
+            }
+        },
+
+        pant: {
+            type: PantType,
+            args: { id: { type: GraphQLID }},
+            resolve(parent, args) {
+                // code to get data from db / other source
+                return _.find(pants, { id: args.id });
             }
         }
     }
