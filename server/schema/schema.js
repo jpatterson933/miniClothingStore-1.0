@@ -6,21 +6,22 @@ const {
     GraphQLID,
     GraphQLString,
     GraphQLInt,
-    GraphQLSchema
+    GraphQLSchema,
+    GraphQLList
 } = graphql;
 
 // dummy data
 let tshirts = [
-    { shirtType: 'Polo', color: 'Blue', upc: 00001, id: '1', sizeId: '1' },
-    { shirtType: 'Henley', color: 'Black', upc: 00002, id: '2', sizeId: '2' },
-    { shirtType: 'V-neck', color: 'White', upc: 00003, id: '3', sizeId: '3' },
-    { shirtType: 'Striped', color: 'Grey', upc: 00004, id: '4', sizeId: '5' },
-    { shirtType: 'Polo', color: 'Green', upc: 00005, id: '5', sizeId: '6' },
-    { shirtType: 'Henley', color: 'Red', upc: 00010, id: '6', sizeId: '1' },
-    { shirtType: 'V-neck', color: 'Orange', upc: 00020, id: '7', sizeId: '3' },
-    { shirtType: 'Hooded', color: 'Purple', upc: 00030, id: '8', sizeId: '4' },
-    { shirtType: 'Crew Neck', color: 'Green', upc: 00040, id: '9', sizeId: '5' },
-    { shirtType: 'Crew Nec', color: 'Blue', upc: 00050, id: '10', sizeId: '6' }
+    { shirtType: 'Polo', colorId: '1', upc: 00001, id: '1', sizeId: '1' },
+    { shirtType: 'Henley', colorId: '2', upc: 00002, id: '2', sizeId: '2' },
+    { shirtType: 'V-neck', colorId: '3', upc: 00003, id: '3', sizeId: '3' },
+    { shirtType: 'Striped', colorId: '4', upc: 00004, id: '4', sizeId: '5' },
+    { shirtType: 'Polo', colorId: '1', upc: 00005, id: '5', sizeId: '6' },
+    { shirtType: 'Henley', colorId: '2', upc: 00010, id: '6', sizeId: '1' },
+    { shirtType: 'V-neck', colorId: '3', upc: 00020, id: '7', sizeId: '3' },
+    { shirtType: 'Hooded', colorId: '4', upc: 00030, id: '8', sizeId: '4' },
+    { shirtType: 'Crew Neck', colorId: '1', upc: 00040, id: '9', sizeId: '5' },
+    { shirtType: 'Crew Nec', colorId: '2', upc: 00050, id: '10', sizeId: '6' }
 ]
 
 let clothingSize = [
@@ -29,14 +30,14 @@ let clothingSize = [
     { name: 'Medium', id: '3' },
     { name: 'Large', id: '4' },
     { name: 'Extra Large', id: '5' },
-    { name: 'Extra Extra Large', id: '6' },
+    { name: 'Extra Extra Large', id: '6' }
 ]
 
 let colors = [
-    { name: 'white', id: '1'},
-    { name: 'black', id: '2'},
-    { name: 'beige', id: '3'},
-    { name: 'tan', id: '4'}
+    { name: 'white', id: '1' },
+    { name: 'black', id: '2' },
+    { name: 'beige', id: '3' },
+    { name: 'tan', id: '4' }
 ]
 
 let pants = [
@@ -61,16 +62,15 @@ const TshirtType = new GraphQLObjectType({
         upc: { type: GraphQLInt },
         size: {
             type: SizeType,
-            resolve(parent, args){
-                console.log(parent);
-                return _.find(clothingSize, { id: parent.sizeId});
+            resolve(parent, args) {
+                return _.find(clothingSize, { id: parent.sizeId });
             }
         },
         color: {
             type: ColorType,
-            resolve(parent, args){
-                console.log(parent);
-                return _.find(colors, { id: parent.colorId})
+            resolve(parent, args) {
+                console.log(parent, parent.colorId, "TshirType Parent");
+                return _.find(colors, { id: parent.colorId });
             }
         }
     })
@@ -81,9 +81,20 @@ const PantType = new GraphQLObjectType({
     fields: () => ({
         id: { type: GraphQLID },
         pantType: { type: GraphQLString },
-        size: { type: GraphQLString },
-        color: { type: GraphQLString },
-        upc: { type: GraphQLInt }
+        upc: { type: GraphQLInt },
+        size: {
+            type: SizeType,
+            resolve(parent, args) {
+                return _.find(clothingSize, { id: parent.sizeId });
+            }
+        },
+        color: {
+            type: ColorType,
+            resolve(parent, args) {
+                console.log(parent);
+                return _.find(colors, { id: parent.colorId })
+            }
+        }
     })
 });
 
@@ -91,7 +102,13 @@ const SizeType = new GraphQLObjectType({
     name: 'Size',
     fields: () => ({
         id: { type: GraphQLID },
-        name: { type: GraphQLString }
+        name: { type: GraphQLString },
+        tshirts: {
+            type: new GraphQLList(TshirtType),
+            resolve(parent, args) {
+                return _.filter(tshirts, { sizeId: parent.id })
+            }
+        }
     })
 });
 
@@ -99,7 +116,14 @@ const ColorType = new GraphQLObjectType({
     name: 'Color',
     fields: () => ({
         id: { type: GraphQLID },
-        name: { type: GraphQLString }
+        name: { type: GraphQLString },
+        tshirts: {
+            type: new GraphQLList(TshirtType),
+            resolve(parent, args) {
+                console.log(parent)
+                return _.filter(tshirts, { colorId: parent.id})
+            }
+        }
     })
 });
 
@@ -135,6 +159,7 @@ const RootQuery = new GraphQLObjectType({
             type: ColorType,
             args: { id: { type: GraphQLID } },
             resolve(parent, args) {
+                console.log(parent, "color query")
                 // code to get data from db / other source
                 return _.find(colors, { id: args.id })
             }
