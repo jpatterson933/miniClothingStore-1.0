@@ -21,7 +21,6 @@ var tshirts = [
     { shirtType: 'Hooded', size: 'L', color: 'Purple', upc: 00030, id: 8 },
     { shirtType: 'Crew Neck', size: 'XL', color: 'Green', upc: 00040, id: 9 },
     { shirtType: 'U Neck/Scoop Neck', size: 'XXL', color: 'Blue', upc: 00050, id: 10 },
-
 ]
 
 const TshirtType = new GraphQLObjectType({
