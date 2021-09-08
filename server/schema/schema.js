@@ -25,12 +25,12 @@ let tshirts = [
 ]
 
 let clothingSize = [
-    { name: 'Extra Small', id: '1' },
-    { name: 'Small', id: '2' },
-    { name: 'Medium', id: '3' },
-    { name: 'Large', id: '4' },
-    { name: 'Extra Large', id: '5' },
-    { name: 'Extra Extra Large', id: '6' }
+    { name: 'XS', id: '1' },
+    { name: 'S', id: '2' },
+    { name: 'M', id: '3' },
+    { name: 'L', id: '4' },
+    { name: 'XL', id: '5' },
+    { name: 'XXL', id: '6' }
 ]
 
 let colors = [
@@ -52,8 +52,6 @@ let pants = [
     { pantType: 'Sweat Pants', colorId: '5', upc: 92345, id: '9', sizeId: '1' },
 ]
 
-
-
 const TshirtType = new GraphQLObjectType({
     name: 'Tshirt',
     fields: () => ({
@@ -69,7 +67,6 @@ const TshirtType = new GraphQLObjectType({
         color: {
             type: ColorType,
             resolve(parent, args) {
-                console.log(parent, parent.colorId, "TshirType Parent");
                 return _.find(colors, { id: parent.colorId });
             }
         }
@@ -91,7 +88,6 @@ const PantType = new GraphQLObjectType({
         color: {
             type: ColorType,
             resolve(parent, args) {
-                console.log(parent);
                 return _.find(colors, { id: parent.colorId })
             }
         }
@@ -120,8 +116,7 @@ const ColorType = new GraphQLObjectType({
         tshirts: {
             type: new GraphQLList(TshirtType),
             resolve(parent, args) {
-                console.log(parent)
-                return _.filter(tshirts, { colorId: parent.id})
+                return _.filter(tshirts, { colorId: parent.id })
             }
         }
     })
@@ -138,13 +133,24 @@ const RootQuery = new GraphQLObjectType({
                 return _.find(tshirts, { id: args.id });
             }
         },
-
+        tshirts: {
+            type: new GraphQLList(TshirtType),
+            resolve(parent, args){
+                return tshirts;
+            }
+        },
         pant: {
             type: PantType,
             args: { id: { type: GraphQLID } },
             resolve(parent, args) {
                 // code to get data from db / other source
                 return _.find(pants, { id: args.id });
+            }
+        },
+        pants: {
+            type: new GraphQLList(PantType),
+            resolve(parent, args){
+                return pants;
             }
         },
         size: {
@@ -159,7 +165,6 @@ const RootQuery = new GraphQLObjectType({
             type: ColorType,
             args: { id: { type: GraphQLID } },
             resolve(parent, args) {
-                console.log(parent, "color query")
                 // code to get data from db / other source
                 return _.find(colors, { id: args.id })
             }
