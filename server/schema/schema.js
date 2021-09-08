@@ -118,6 +118,12 @@ const ColorType = new GraphQLObjectType({
             resolve(parent, args) {
                 return _.filter(tshirts, { colorId: parent.id })
             }
+        },
+        pants: {
+            type: new GraphQLList(PantType),
+            resolve(parent, args) {
+                return _.filter(pants, { colorId: parent.id })
+            }
         }
     })
 });
@@ -161,12 +167,24 @@ const RootQuery = new GraphQLObjectType({
                 return _.find(clothingSize, { id: args.id })
             }
         },
+        clothingSize: {
+            type: new GraphQLList(SizeType),
+            resolve(parent, args){
+                return clothingSize;
+            }
+        },
         color: {
             type: ColorType,
             args: { id: { type: GraphQLID } },
             resolve(parent, args) {
                 // code to get data from db / other source
                 return _.find(colors, { id: args.id })
+            }
+        },
+        colors: {
+            type: new GraphQLList(ColorType),
+            resolve(parent, args){
+                return colors;
             }
         }
     }
