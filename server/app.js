@@ -2,16 +2,20 @@ const express = require('express');
 const { graphqlHTTP } = require('express-graphql')
 const schema = require('./schema/schema');
 const mongoose = require('mongoose');
+const cors = require('cors');
 require('dotenv').config();
+
 
 // setup our express app routes
 const app = express();
 
+// allow cross-origin requests
+app.use(cors());
 // connect to our mongoose database
 mongoose.connect(process.env.DB_STORE);
 mongoose.connection.once('open', () => {
     console.log('connected to mongoose database');
-})
+}) 
 
 app.use('/graphql', graphqlHTTP({
     // this schema is defining our graph and the object types on that graph
