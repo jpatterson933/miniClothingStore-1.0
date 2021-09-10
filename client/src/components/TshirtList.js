@@ -39,7 +39,7 @@ class TshirtList extends Component {
     
     
     render() {
-        console.log(this.props)
+
 
         return (
             <div id="main">

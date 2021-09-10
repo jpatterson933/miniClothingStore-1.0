@@ -4,6 +4,7 @@ import { gql } from 'apollo-boost';
 import { graphql } from 'react-apollo';
 
 // FIRST - we construct this query that is below
+// same query structure as graphql //
 const getPantsQuery = gql`
     {
         pants {
@@ -20,8 +21,8 @@ const getPantsQuery = gql`
     }
 
 `;
-// SECOND we bind the query we have constructed to our component
 
+// SECOND we bind the query we have constructed to our component
 class PantList extends Component {
     displayPants(){
         var data = this.props.data;
@@ -36,9 +37,8 @@ class PantList extends Component {
         }
     }
     
-    
     render() {
-        console.log(this.props)
+        // console.log(this.props)
         return (
             <div id="main">
                 <ul id="pant-list">

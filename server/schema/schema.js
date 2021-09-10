@@ -154,6 +154,12 @@ const RootQuery = new GraphQLObjectType({
                 return Size.findById(args.id);
             }
         },
+        sizes: {
+            type: new GraphQLList(SizeType),
+            resolve(parent, args) {
+                return Size.find({});
+            }
+        },
         color: {
             type: ColorType,
             args: { id: { type: GraphQLID } },

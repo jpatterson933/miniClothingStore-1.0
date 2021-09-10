@@ -4,7 +4,9 @@ import { ApolloProvider } from 'react-apollo';
 
 // components
 import TshirtList from "./components/TshirtList";
+import AddTshirt from "./components/AddTshirt";
 import PantList from "./components/PantList";
+import AddPant from "./components/AddPant";
 
 //apollo client setup - allows react and graphql to work together
 const client = new ApolloClient({
@@ -18,7 +20,9 @@ class App extends Component {
         <div id="main">
           <h1>Miniature Web Store</h1>
           <TshirtList />
+          <AddTshirt />
           <PantList />
+          <AddPant />
         </div>
       </ApolloProvider>
     );
