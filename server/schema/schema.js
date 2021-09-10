@@ -11,7 +11,8 @@ const {
     GraphQLString,
     GraphQLInt,
     GraphQLSchema,
-    GraphQLList
+    GraphQLList,
+    GraphQLNonNull
 } = graphql;
 
 // dummy data
@@ -20,9 +21,9 @@ const {
 const TshirtType = new GraphQLObjectType({
     name: 'Tshirt',
     fields: () => ({
-        id: { type: GraphQLID },
-        shirtType: { type: GraphQLString },
-        upc: { type: GraphQLInt },
+        id: { type: GraphQLNonNull(GraphQLID) },
+        shirtType: { type: GraphQLNonNull(GraphQLString)},
+        upc: { type: GraphQLNonNull(GraphQLInt) },
         size: {
             type: SizeType,
             resolve(parent, args) {
@@ -43,9 +44,9 @@ const TshirtType = new GraphQLObjectType({
 const PantType = new GraphQLObjectType({
     name: 'Pant',
     fields: () => ({
-        id: { type: GraphQLID },
-        pantType: { type: GraphQLString },
-        upc: { type: GraphQLInt },
+        id: { type: GraphQLNonNull(GraphQLID) },
+        pantType: { type: GraphQLNonNull(GraphQLString) },
+        upc: { type: GraphQLNonNull (GraphQLInt) },
         size: {
             type: SizeType,
             resolve(parent, args) {
@@ -66,8 +67,8 @@ const PantType = new GraphQLObjectType({
 const SizeType = new GraphQLObjectType({
     name: 'Size',
     fields: () => ({
-        id: { type: GraphQLID },
-        name: { type: GraphQLString },
+        id: { type: GraphQLNonNull(GraphQLID) },
+        name: { type: GraphQLNonNull (GraphQLString) },
         tshirts: {
             type: new GraphQLList(TshirtType),
             resolve(parent, args) {
@@ -88,8 +89,8 @@ const SizeType = new GraphQLObjectType({
 const ColorType = new GraphQLObjectType({
     name: 'Color',
     fields: () => ({
-        id: { type: GraphQLID },
-        name: { type: GraphQLString },
+        id: { type: GraphQLNonNull (GraphQLID) },
+        name: { type:  GraphQLNonNull(GraphQLString) },
         tshirts: {
             type: new GraphQLList(TshirtType),
             resolve(parent, args) {
@@ -178,10 +179,10 @@ const Mutation = new GraphQLObjectType({
         addTshirt: {
             type: TshirtType,
             args: {
-                shirtType: { type: GraphQLString },
-                colorId: { type: GraphQLID },
-                upc: { type: GraphQLInt },
-                sizeId: { type: GraphQLID }
+                shirtType: { type: GraphQLNonNull(GraphQLString) },
+                colorId: { type: GraphQLNonNull(GraphQLID) },
+                upc: { type: GraphQLNonNull(GraphQLInt) },
+                sizeId: { type: GraphQLNonNull(GraphQLID) }
             },
             resolve(parent, args) {
                 let tshirt = Tshirt({
@@ -196,10 +197,10 @@ const Mutation = new GraphQLObjectType({
         addPant: {
             type: PantType,
             args: {
-                pantType: { type: GraphQLString },
-                colorId: { type: GraphQLID },
-                upc: { type: GraphQLInt },
-                sizeId: { type: GraphQLID }
+                pantType: { type: GraphQLNonNull(GraphQLString) },
+                colorId: { type: GraphQLNonNull(GraphQLID) },
+                upc: { type: GraphQLNonNull(GraphQLInt) },
+                sizeId: { type: GraphQLNonNull(GraphQLID) }
             },
             resolve(parent, args) {
                 let pant = Pant({
@@ -215,7 +216,7 @@ const Mutation = new GraphQLObjectType({
         addSize: {
             type: SizeType,
             args: {
-                name: { type: GraphQLString }
+                name: { type: GraphQLNonNull(GraphQLString) }
             },
             resolve(parent, args) {
                 let size = Size({
@@ -227,7 +228,7 @@ const Mutation = new GraphQLObjectType({
         addColor: {
             type: ColorType,
             args: {
-                name: { type: GraphQLString }
+                name: { type: GraphQLNonNull(GraphQLString) }
             },
             resolve(parent, args) {
                 let color = Color({
