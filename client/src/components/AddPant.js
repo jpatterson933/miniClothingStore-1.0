@@ -1,23 +1,24 @@
 import React, { Component } from 'react';
-import { gql } from 'apollo-boost';
+// import { gql } from 'apollo-boost';
 // helps us bind apollo to react
 import { graphql } from 'react-apollo';
 // import { flowRight as compose } from 'lodash';
+import { getSizeColorQuery } from '../queries/queries';
 
 // FIRST - we construct this query that is below
 // same query structure as graphql //
-const getSizeColorQuery = gql`
-    {
-        sizes{
-            id
-            name
-        }
-        colors{
-            id
-            name
-        }
-    }
-`;
+// const getSizeColorQuery = gql`
+//     {
+//         sizes{
+//             id
+//             name
+//         }
+//         colors{
+//             id
+//             name
+//         }
+//     }
+// `;
 
 // SECOND we bind the query we have constructed to our component
 class AddPant extends Component {
