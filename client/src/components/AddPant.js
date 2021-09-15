@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 // helps us bind apollo to react
 import { graphql } from 'react-apollo';
 import { flowRight as compose } from 'lodash';
-import { getSizeColorQuery, addPantMutation } from '../queries/queries';
+import { getSizeColorQuery, addPantMutation, getPantsQuery } from '../queries/queries';
 
 // FIRST - we construct this query that is below
 // same query structure as graphql //
@@ -62,7 +62,8 @@ class AddPant extends Component {
                 colorId: this.state.colorId,
                 upc: this.state.upc,
                 sizeId: this.state.sizeId
-            }
+            },
+            refetchQueries: [{query: getPantsQuery}]
         })
     }
 
