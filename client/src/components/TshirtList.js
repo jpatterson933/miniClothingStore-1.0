@@ -28,6 +28,12 @@ import TshirtDetails from './TshirtDetails';
 // SECOND we bind the query we have constructed to our component
 
 class TshirtList extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            selected: null
+        }
+    }
 
     displayTshirts() {
         var data = this.props.data;
@@ -36,7 +42,7 @@ class TshirtList extends Component {
         } else {
             return data.tshirts.map(tshirt => {
                 return (
-                    <li key={tshirt.id}>{tshirt.shirtType}</li>
+                    <li key={tshirt.id} onClick={(e) => { this.setState({ selected: tshirt.id }) }} >{tshirt.shirtType}</li>
                 )
             })
         }
@@ -51,7 +57,7 @@ class TshirtList extends Component {
                 <ul id="tshirt-list">
                     {this.displayTshirts()}
                 </ul>
-                <TshirtDetails />
+                <TshirtDetails tshirtId={this.state.selected} />
 
             </div>
         );

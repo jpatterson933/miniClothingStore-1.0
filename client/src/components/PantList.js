@@ -26,6 +26,12 @@ import PantDetails from './PantDetails';
 
 // SECOND we bind the query we have constructed to our component
 class PantList extends Component {
+    constructor(props) {
+        super(props) 
+        this.state = {
+            selected: null
+        }
+    }
     displayPants(){
         var data = this.props.data;
         if(data.loading){
@@ -33,7 +39,7 @@ class PantList extends Component {
         } else {
             return data.pants.map(pant => {
                 return (
-                    <li key={pant.id}>{pant.pantType}</li>
+                    <li key={pant.id} onClick={ (e) => { this.setState({ selected: pant.id })} }>{pant.pantType}</li>
                 )
             })
         }
@@ -46,7 +52,7 @@ class PantList extends Component {
                 <ul id="pant-list">
                     {this.displayPants()}
                 </ul>
-                <PantDetails />
+                <PantDetails pantId={this.state.selected} />
             </div>
         );
     }
