@@ -22,6 +22,15 @@ import { getSizeColorQuery } from '../queries/queries';
 // SECOND we bind the query we have constructed to our component
 
 class AddTshirt extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            shirtType: '',
+            upc: '',
+            sizeId: '',
+            colorId: ''
+        };
+    }
 
     displaySizes() {
         let data = this.props.data;
@@ -36,8 +45,8 @@ class AddTshirt extends Component {
 
     displayColors() {
         let data = this.props.data;
-        if(data.loading) {
-            return ( <option disabled>Loading Colors...</option>);
+        if (data.loading) {
+            return (<option disabled>Loading Colors...</option>);
         } else {
             return data.colors.map(color => {
                 return (<option key={color.id} value={color.id}>{color.name}</option>);
@@ -45,30 +54,35 @@ class AddTshirt extends Component {
         }
     }
 
+    submitForm(e){
+        e.preventDefault();
+        console.log(this.state);
+    }
+
 
     render() {
         return (
-            <form id="add-tshirt">
+            <form id="add-tshirt" onSubmit={this.submitForm.bind(this)}>
                 <div className="field">
                     <label>Type: </label>
-                    <input type="text" />
+                    <input type="text" onChange={(e) => this.setState({ shirtType: e.target.value })} />
                 </div>
 
                 <div className="field">
                     <label>UPC: </label>
-                    <input type="text" />
+                    <input type="text" onChange={(e) => this.setState({ upc: e.target.value })} />
                 </div>
                 <div className="field">
                     <label>Color: </label>
-                    <input type="text" placeholder="Add New Color" />
-                    <select>
+                    {/* <input type="text" placeholder="Add New Color" /> */}
+                    <select onChange={(e) => this.setState({ colorId: e.target.value })}>
                         <option>Select Color</option>
                         {this.displayColors()}
                     </select>
                 </div>
                 <div className="field">
                     <label>Size: </label>
-                    <select>
+                    <select onChange={(e) => this.setState({ sizeId: e.target.value })}>
                         <option>Select Size</option>
                         {this.displaySizes()}
                     </select>

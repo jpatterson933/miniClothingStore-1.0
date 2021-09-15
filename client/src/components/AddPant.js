@@ -22,6 +22,15 @@ import { getSizeColorQuery } from '../queries/queries';
 
 // SECOND we bind the query we have constructed to our component
 class AddPant extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            pantType: '',
+            upc: '',
+            sizeId: '',
+            colorId:''
+        };
+    }
 
     displaySizes() {
         let data = this.props.data;
@@ -45,30 +54,36 @@ class AddPant extends Component {
         }
     };
 
+    submitForm(e){
+        e.preventDefault();
+        console.log(this.state)
+    }
+    
+
     render() {
 
         return (
-            <form id="add-pant">
+            <form id="add-pant" onSubmit={this.submitForm.bind(this)}>
             <div className="field">
                 <label>Type: </label>
-                <input type="text" />
+                <input type="text" onChange={ (e) => this.setState({ pantType: e.target.value})} />
             </div>
 
             <div className="field">
                 <label>UPC: </label>
-                <input type="text" />
+                <input type="text" onChange={ (e) => this.setState({ upc: e.target.value})}/>
             </div>
             <div className="field">
                 <label>Color: </label>
-                <input type="text" placeholder="Add New Color" />
-                <select>
+                {/* <input type="text" placeholder="Add New Color" /> */}
+                <select onChange={ (e) => this.setState({ colorId: e.target.value})}>
                     <option>Select Color</option>
                     {this.displayColors()}
                 </select>
             </div>
             <div className="field">
                 <label>Size: </label>
-                <select>
+                <select onChange={ (e) => this.setState({ sizeId: e.target.value})}>
                     <option>Select Size</option>
                     {this.displaySizes()}
                 </select>
