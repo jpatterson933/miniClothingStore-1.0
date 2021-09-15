@@ -1,30 +1,30 @@
 import React, { Component } from 'react';
-import ApolloClient from 'apollo-boost';
-import { ApolloProvider } from 'react-apollo';
+import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 // components
-import TshirtList from "./components/TshirtList";
-import AddTshirt from "./components/AddTshirt";
-import PantList from "./components/PantList";
-import AddPant from "./components/AddPant";
+import { Nav } from './components/Nav';
 
-//apollo client setup - allows react and graphql to work together
-const client = new ApolloClient({
-  uri: 'http://localhost:8000/graphql'
-})
+
+// views
+import Home from './views/home';
+import AddShirts from './views/shirts';
+import AddPants from './views/pants';
+
 
 class App extends Component {
   render() {
     return (
-      <ApolloProvider client={client}>
-        <div id="main">
-          <h1>Miniature Web Store</h1>
-          <TshirtList />
-          <AddTshirt />
-          <PantList />
-          <AddPant />
-        </div>
-      </ApolloProvider>
+      <div id="main">
+        <Nav />
+        <Router>
+          <Switch>
+            <Route path='/' exact component={Home} />
+            <Route path='/add-shirts' exact component={AddShirts} />
+            <Route path='/add-pants' exact component={AddPants} />
+          </Switch>
+        </Router>
+      </div>
+
     );
   }
 }

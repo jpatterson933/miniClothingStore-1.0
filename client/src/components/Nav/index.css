@@ -1,0 +1,25 @@
+nav {
+    background-color: black;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+nav ul {
+    white-space: nowrap;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+nav li {
+    width: 25%;
+    display: inline-block;
+    font-size: 24px;
+    margin: 0 auto;
+}
+
+nav li a{
+    color: aquamarine;
+    margin: 0 auto;
+}
