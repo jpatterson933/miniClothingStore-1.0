@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 // import { gql } from 'apollo-boost';
 // helps us bind apollo to react
 import { graphql } from 'react-apollo';
-// import { flowRight as compose } from 'lodash';
-import { getSizeColorQuery } from '../queries/queries';
+import { flowRight as compose } from 'lodash';
+import { getSizeColorQuery, addTshirtMutation } from '../queries/queries';
 
 // FIRST - we construct this query that is below
 // const getSizeColorQuery = gql`
@@ -33,7 +33,7 @@ class AddTshirt extends Component {
     }
 
     displaySizes() {
-        let data = this.props.data;
+        let data = this.props.getSizeColorQuery;
         if (data.loading) {
             return (<option disabled>Loading Sizes..</option>)
         } else {
@@ -44,7 +44,7 @@ class AddTshirt extends Component {
     }
 
     displayColors() {
-        let data = this.props.data;
+        let data = this.props.getSizeColorQuery;
         if (data.loading) {
             return (<option disabled>Loading Colors...</option>);
         } else {
@@ -54,9 +54,16 @@ class AddTshirt extends Component {
         }
     }
 
-    submitForm(e){
+    submitForm(e) {
         e.preventDefault();
-        console.log(this.state);
+        this.props.addTshirtMutation({
+            variables: {
+                shirtType: this.state.shirtType,
+                colorId: this.state.colorId,
+                upc: this.state.upc,
+                sizeId: this.state.sizeId
+            }
+        })
     }
 
 
@@ -70,7 +77,7 @@ class AddTshirt extends Component {
 
                 <div className="field">
                     <label>UPC: </label>
-                    <input type="text" onChange={(e) => this.setState({ upc: e.target.value })} />
+                    <input type="text" onChange={(e) => this.setState({ upc: parseInt(e.target.value)})} />
                 </div>
                 <div className="field">
                     <label>Color: </label>
@@ -93,4 +100,7 @@ class AddTshirt extends Component {
     }
 }
 
-export default graphql(getSizeColorQuery)(AddTshirt);
+export default compose(
+    graphql(getSizeColorQuery, { name: "getSizeColorQuery" }),
+    graphql(addTshirtMutation, { name: "addTshirtMutation" })
+)(AddTshirt);
