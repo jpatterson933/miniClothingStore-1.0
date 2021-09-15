@@ -18,6 +18,24 @@ const getTshirtsQuery = gql`
 
 `;
 
+const getTshirtQuery = gql`
+    query($id: ID){
+        tshirt(id: $id){
+
+            id
+            shirtType
+            color{
+                name
+            }
+            upc
+            size{
+                name
+            }
+        }
+    }
+`;
+
+
 // FIRST - we construct this query that is below
 // same query structure as graphql //
 const getPantsQuery = gql`
@@ -34,8 +52,26 @@ const getPantsQuery = gql`
             }
         }
     }
-
 `;
+
+
+const getPantQuery = gql`
+    query($id: ID){
+        pant(id: $id){
+
+            id
+            pantType
+            color{
+                name
+            }
+            upc
+            size{
+                name
+            }
+        }
+    }
+`;
+
 
 // FIRST - we construct this query that is below
 const getSizeColorQuery = gql`
@@ -85,7 +121,9 @@ const addPantMutation = gql`
 
 export {
     getPantsQuery,
+    getPantQuery,
     getTshirtsQuery,
+    getTshirtQuery,
     getSizeColorQuery,
     addTshirtMutation,
     addPantMutation

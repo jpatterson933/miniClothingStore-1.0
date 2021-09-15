@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 // import { gql } from 'apollo-boost';
 // helps us bind apollo to react
 import { graphql } from 'react-apollo';
+//queries
 import { getTshirtsQuery } from '../queries/queries';
+// componenets
+import TshirtDetails from './TshirtDetails';
+
+
 // FIRST - we construct this query that is below
 // const getTshirtsQuery = gql`
 //     {
@@ -24,10 +29,10 @@ import { getTshirtsQuery } from '../queries/queries';
 
 class TshirtList extends Component {
 
-    displayTshirts(){
+    displayTshirts() {
         var data = this.props.data;
-        if(data.loading){
-            return( <div> Loading Shirts </div>)
+        if (data.loading) {
+            return (<div> Loading Shirts </div>)
         } else {
             return data.tshirts.map(tshirt => {
                 return (
@@ -36,8 +41,8 @@ class TshirtList extends Component {
             })
         }
     }
-    
-    
+
+
     render() {
 
 
@@ -46,6 +51,8 @@ class TshirtList extends Component {
                 <ul id="tshirt-list">
                     {this.displayTshirts()}
                 </ul>
+                <TshirtDetails />
+
             </div>
         );
     }

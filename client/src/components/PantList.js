@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 // helps us bind apollo to react
 import { graphql } from 'react-apollo';
 import { getPantsQuery } from '../queries/queries';
+import PantDetails from './PantDetails';
 
 // FIRST - we construct this query that is below
 // same query structure as graphql //
@@ -45,6 +46,7 @@ class PantList extends Component {
                 <ul id="pant-list">
                     {this.displayPants()}
                 </ul>
+                <PantDetails />
             </div>
         );
     }
