@@ -3,8 +3,8 @@ import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 
 // components
-import PantList from "../components/PantList";
-import AddPant from "../components/AddPant";
+import PantList from "../components/Pant/PantList";
+import AddPant from "../components/Pant/AddPant";
 
 //apollo client setup - allows react and graphql to work together
 const client = new ApolloClient({

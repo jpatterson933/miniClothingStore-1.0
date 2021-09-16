@@ -1,31 +1,10 @@
 import React, { Component } from 'react';
-// import { gql } from 'apollo-boost';
 // helps us bind apollo to react
 import { graphql } from 'react-apollo';
 //queries
-import { getTshirtsQuery } from '../queries/queries';
-// componenets
+import { getTshirtsQuery } from '../../queries/queries';
+// components
 import TshirtDetails from './TshirtDetails';
-
-
-// FIRST - we construct this query that is below
-// const getTshirtsQuery = gql`
-//     {
-//         tshirts {
-//             id
-//             shirtType
-//             upc
-//             size {
-//                 name
-//             }
-//             color {
-//                 name
-//             }
-//         }
-//     }
-
-// `;
-// SECOND we bind the query we have constructed to our component
 
 class TshirtList extends Component {
     constructor(props) {
@@ -48,17 +27,13 @@ class TshirtList extends Component {
         }
     }
 
-
     render() {
-
-
         return (
             <div id="main">
                 <ul id="tshirt-list">
                     {this.displayTshirts()}
                 </ul>
                 <TshirtDetails tshirtId={this.state.selected} />
-
             </div>
         );
     }

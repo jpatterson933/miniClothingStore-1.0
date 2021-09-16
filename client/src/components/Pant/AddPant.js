@@ -1,31 +1,15 @@
 import React, { Component } from 'react';
-// import { gql } from 'apollo-boost';
 // helps us bind apollo to react
 import { graphql } from 'react-apollo';
 import { flowRight as compose } from 'lodash';
-import { getSizeColorQuery, addTshirtMutation, getTshirtsQuery } from '../queries/queries';
-
-// FIRST - we construct this query that is below
-// const getSizeColorQuery = gql`
-//     {
-//         sizes{
-//             id
-//             name
-//         }
-//         colors{
-//             id
-//             name
-//         }
-//     }
-// `;
+import { getSizeColorQuery, addPantMutation, getPantsQuery } from '../../queries/queries';
 
 // SECOND we bind the query we have constructed to our component
-
-class AddTshirt extends Component {
+class AddPant extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            shirtType: '',
+            pantType: '',
             upc: '',
             sizeId: '',
             colorId: ''
@@ -41,7 +25,7 @@ class AddTshirt extends Component {
                 return (<option key={size.id} value={size.id}>{size.name}</option>);
             })
         }
-    }
+    };
 
     displayColors() {
         let data = this.props.getSizeColorQuery;
@@ -52,33 +36,32 @@ class AddTshirt extends Component {
                 return (<option key={color.id} value={color.id}>{color.name}</option>);
             })
         }
-    }
+    };
 
     submitForm(e) {
         e.preventDefault();
-        this.props.addTshirtMutation({
+        this.props.addPantMutation({
             variables: {
-                shirtType: this.state.shirtType,
+                pantType: this.state.pantType,
                 colorId: this.state.colorId,
                 upc: this.state.upc,
                 sizeId: this.state.sizeId
             },
-            refetchQueries: [{query: getTshirtsQuery}]
+            refetchQueries: [{ query: getPantsQuery }]
         })
     }
 
-
     render() {
         return (
-            <form id="add-tshirt" onSubmit={this.submitForm.bind(this)}>
+            <form id="add-pant" onSubmit={this.submitForm.bind(this)}>
                 <div className="field">
                     <label>Type: </label>
-                    <input type="text" onChange={(e) => this.setState({ shirtType: e.target.value })} />
+                    <input type="text" onChange={(e) => this.setState({ pantType: e.target.value })} />
                 </div>
-
                 <div className="field">
                     <label>UPC: </label>
-                    <input type="text" onChange={(e) => this.setState({ upc: parseInt(e.target.value)})} />
+                    {/* here we use parseInt to make sure we recieve an integer so it doesn't throw an error in our models */}
+                    <input type="text" onChange={(e) => this.setState({ upc: parseInt(e.target.value) })} />
                 </div>
                 <div className="field">
                     <label>Color: </label>
@@ -95,7 +78,7 @@ class AddTshirt extends Component {
                         {this.displaySizes()}
                     </select>
                 </div>
-                <button>Add Shirts</button>
+                <button>Add Pants</button>
             </form>
         );
     }
@@ -103,5 +86,5 @@ class AddTshirt extends Component {
 
 export default compose(
     graphql(getSizeColorQuery, { name: "getSizeColorQuery" }),
-    graphql(addTshirtMutation, { name: "addTshirtMutation" })
-)(AddTshirt);
+    graphql(addPantMutation, { name: "addPantMutation" })
+)(AddPant);

@@ -9,6 +9,7 @@ import { Nav } from './components/Nav';
 import Home from './views/home';
 import AddShirts from './views/shirts';
 import AddPants from './views/pants';
+import AddColors from './views/colors';
 
 
 class App extends Component {
@@ -21,6 +22,7 @@ class App extends Component {
             <Route path='/' exact component={Home} />
             <Route path='/add-shirts' exact component={AddShirts} />
             <Route path='/add-pants' exact component={AddPants} />
+            <Route path='/add-colors' exact component={AddColors} />
           </Switch>
         </Router>
       </div>

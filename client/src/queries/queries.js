@@ -21,7 +21,6 @@ const getTshirtsQuery = gql`
 const getTshirtQuery = gql`
     query($id: ID){
         tshirt(id: $id){
-
             id
             shirtType
             color{
@@ -35,9 +34,6 @@ const getTshirtQuery = gql`
     }
 `;
 
-
-// FIRST - we construct this query that is below
-// same query structure as graphql //
 const getPantsQuery = gql`
     {
         pants {
@@ -54,11 +50,9 @@ const getPantsQuery = gql`
     }
 `;
 
-
 const getPantQuery = gql`
     query($id: ID){
         pant(id: $id){
-
             id
             pantType
             color{
@@ -72,8 +66,6 @@ const getPantQuery = gql`
     }
 `;
 
-
-// FIRST - we construct this query that is below
 const getSizeColorQuery = gql`
     {
         sizes{
@@ -86,7 +78,16 @@ const getSizeColorQuery = gql`
         }
     }
 `;
-// after mutation you can name the mutation 
+
+const getColorsQuery = gql`
+    {
+        colors{
+            id
+            name
+        }
+    }
+`;
+// mutations
 const addTshirtMutation = gql`
     mutation($shirtType: String!, $colorId: ID!, $upc: Int!, $sizeId: ID!){
         addTshirt(shirtType: $shirtType, colorId: $colorId, upc: $upc, sizeId: $sizeId){
@@ -100,7 +101,6 @@ const addTshirtMutation = gql`
             }
         }
     }
-
 `;
 // $ using this size, we create cariable in a () right after we declare mutation and then we can pass thos variable into the mutation itself
 const addPantMutation = gql`
@@ -116,7 +116,14 @@ const addPantMutation = gql`
             }
         }
     }
+`;
 
+const addColorMutation = gql`
+    mutation($name: String!){
+        addColor(name: $name){
+            name
+        }
+    }
 `;
 
 export {
@@ -125,6 +132,8 @@ export {
     getTshirtsQuery,
     getTshirtQuery,
     getSizeColorQuery,
+    getColorsQuery,
     addTshirtMutation,
-    addPantMutation
+    addPantMutation,
+    addColorMutation
 };

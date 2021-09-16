@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { graphql } from "react-apollo";
-import { getTshirtQuery } from "../queries/queries";
+import { getTshirtQuery } from "../../queries/queries";
 
 class TshirtDetails extends Component {
-
+    
     displayShirtDetails() {
         const { tshirt } = this.props.data;
         if (tshirt) {
@@ -23,12 +23,10 @@ class TshirtDetails extends Component {
     }
 
     render() {
-
         return (
             <div>
                 <p>Shirt Details...</p>
                 {this.displayShirtDetails()}
-
             </div>
         )
     }

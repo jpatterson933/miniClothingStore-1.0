@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { graphql } from "react-apollo";
-import { getPantQuery } from "../queries/queries";
+import { getPantQuery } from "../../queries/queries";
 
 class PantDetails extends Component {
     displayPantDetails() {
@@ -16,8 +16,8 @@ class PantDetails extends Component {
             )
         }
     }
+    
     render() {
-
         return (
             <div>
                 <p>Pant Details...</p>
