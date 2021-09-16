@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 // helps us bind apollo to react
 import { graphql } from 'react-apollo';
 import { getPantsQuery } from '../../queries/queries';
+// components
 import PantDetails from './PantDetails';
+import { ListItem } from '../List';
+import { LoadingMessage } from '../Loading';
+
 
 class PantList extends Component {
     constructor(props) {
@@ -15,11 +19,11 @@ class PantList extends Component {
     displayPants() {
         var data = this.props.data;
         if (data.loading) {
-            return (<div> Loading Pants </div>)
+            return ( <LoadingMessage /> )
         } else {
             return data.pants.map(pant => {
                 return (
-                    <li key={pant.id} onClick={(e) => { this.setState({ selected: pant.id }) }}>{pant.pantType}</li>
+                    <ListItem key={pant.id} onClick={(e) => { this.setState({ selected: pant.id }) }}>{pant.pantType}</ListItem>
                 )
             })
         }

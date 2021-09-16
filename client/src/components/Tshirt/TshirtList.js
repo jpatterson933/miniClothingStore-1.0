@@ -5,6 +5,8 @@ import { graphql } from 'react-apollo';
 import { getTshirtsQuery } from '../../queries/queries';
 // components
 import TshirtDetails from './TshirtDetails';
+import { ListItem } from '../List';
+import { LoadingMessage } from '../Loading';
 
 class TshirtList extends Component {
     constructor(props) {
@@ -17,11 +19,11 @@ class TshirtList extends Component {
     displayTshirts() {
         var data = this.props.data;
         if (data.loading) {
-            return (<div> Loading Shirts </div>)
+            return (<LoadingMessage />)
         } else {
             return data.tshirts.map(tshirt => {
                 return (
-                    <li key={tshirt.id} onClick={(e) => { this.setState({ selected: tshirt.id }) }} >{tshirt.shirtType}</li>
+                    <ListItem key={tshirt.id} onClick={(e) => { this.setState({ selected: tshirt.id }) }}>{tshirt.shirtType}</ListItem>
                 )
             })
         }

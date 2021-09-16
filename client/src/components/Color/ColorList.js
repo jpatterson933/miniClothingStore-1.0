@@ -4,6 +4,8 @@ import { graphql } from 'react-apollo';
 //query
 import { getColorsQuery } from '../../queries/queries';
 // components
+import { ListItem } from '../List';
+import { LoadingMessage } from '../Loading';
 
 class ColorList extends Component {
     constructor(props) {
@@ -16,11 +18,11 @@ class ColorList extends Component {
     displayColors() {
         var data = this.props.data;
         if (data.loading) {
-            return (<div> Loading Color </div>)
+            return ( <LoadingMessage /> )
         } else {
             return data.colors.map(color => {
                 return (
-                    <li key={color.id} onClick={(e) => { this.setState({ selected: color.id }) }}>{color.name}</li>
+                    <ListItem key={color.id} onClick={(e) => { this.setState({ selected: color.id }) }}>{color.name}</ListItem>
                 )
             })
         }
