@@ -4,6 +4,7 @@ import { graphql } from "react-apollo";
 import { getTshirtQuery } from "../../queries/queries";
 // Components
 import { DetailsCard } from '../Card/DetailsCard';
+import { DetailsTitle } from '../Title';
 
 class TshirtDetails extends Component {
 
@@ -28,7 +29,9 @@ class TshirtDetails extends Component {
     render() {
         return (
             <div>
-                <p>Shirt Details...</p>
+                <DetailsTitle
+                    title="View Shirts..."
+                />
                 {this.displayShirtDetails()}
             </div>
         )

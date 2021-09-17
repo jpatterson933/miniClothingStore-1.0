@@ -5,6 +5,7 @@ import { ApolloProvider } from 'react-apollo';
 // components
 import ColorList from '../components/Color/ColorList';
 import AddColor from '../components/Color/AddColor';
+import { Title } from '../components/Title';
 
 //apollo client setup - allows react and graphql to work together
 const client = new ApolloClient({
@@ -16,7 +17,10 @@ class AddColors extends Component {
     return (
       <ApolloProvider client={client}>
         <div>
-          <h1>View and Add Colors!</h1>
+          <Title
+            title="View and Add Colors!"
+          
+          />
           <ColorList />
           <AddColor />
         </div>

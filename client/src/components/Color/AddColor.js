@@ -25,12 +25,12 @@ class AddColor extends Component {
 
     submitForm(e){
         e.preventDefault();
-        this.props.addColorMutation({
-            variables: {
-                name: this.state.name
-            },
-            refetchQueries: [{ query: getColorsQuery}]
-        })
+            this.props.addColorMutation({
+                variables: {
+                    name: this.state.name
+                },
+                refetchQueries: [{ query: getColorsQuery}]
+            })        
     };
 
 

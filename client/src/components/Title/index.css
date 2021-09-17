@@ -1,0 +1,23 @@
+.title {
+    position: relative;
+    background-color: black;
+    color: aquamarine;
+    font-size: 31px;
+    text-align: center;
+    padding: 7px 0;
+    border-radius: 15px;
+    font-family: -webkit-pictograph;
+    width: 50%;
+    margin: 0 auto;
+    margin-top: 74px;
+}
+
+.details-title {
+    position: relative;
+    background-color: black;
+    color: aquamarine;
+    font-size: 20px;
+    text-align: center;
+    font-family: -webkit-pictograph;
+    width: 25%;
+}

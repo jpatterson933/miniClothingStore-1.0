@@ -5,6 +5,7 @@ import { getPantQuery } from "../../queries/queries";
 
 // Componenets
 import { DetailsCard } from '../Card/DetailsCard';
+import { DetailsTitle } from '../Title';
 
 class PantDetails extends Component {
     displayPantDetails() {
@@ -15,16 +16,18 @@ class PantDetails extends Component {
                     clothingtype={pant.pantType}
                     color={pant.color.name}
                     size={pant.size.name}
-                    upc={pant.upc}                
+                    upc={pant.upc}
                 />
             )
         }
     }
-    
+
     render() {
         return (
             <div>
-                <p>Pant Details...</p>
+                <DetailsTitle
+                    title="View Pants..."
+                />
                 {this.displayPantDetails()}
 
             </div>

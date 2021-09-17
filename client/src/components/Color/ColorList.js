@@ -30,7 +30,7 @@ class ColorList extends Component {
                             liclass="color-list-item"
                         >
                             {color.name}
-                        S</ListItem>
+                        </ListItem>
                 )
             })
         }

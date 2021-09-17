@@ -5,6 +5,7 @@ import { ApolloProvider } from 'react-apollo';
 // components
 import PantList from "../components/Pant/PantList";
 import AddPant from "../components/Pant/AddPant";
+import { Title } from "../components/Title";
 
 //apollo client setup - allows react and graphql to work together
 const client = new ApolloClient({
@@ -16,7 +17,9 @@ class AddPants extends Component {
     return (
       <ApolloProvider client={client}>
         <div>
-          <h1>Add Pants!</h1>
+          <Title
+            title="View and Add Pants!"
+          />
           <PantList />
           <AddPant />
         </div>
