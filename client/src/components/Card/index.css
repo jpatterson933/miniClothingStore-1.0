@@ -1,0 +1,19 @@
+.card {
+    background-color: black;
+    width: 25%;
+    color: aquamarine;
+    min-width: 275px;
+}
+
+.card ul {
+    font-size: 30px;
+    box-shadow: 0px 0px 4px 1px aquamarine, 1px 1px 1px 7px black;
+    border-radius: 10px;
+    list-style: none;
+}
+
+.card ul li {
+    width: 85%;
+    height: 27%;
+
+}

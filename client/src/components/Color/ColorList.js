@@ -28,7 +28,9 @@ class ColorList extends Component {
                             key={color.id} 
                             onClick={(e) => { this.setState({ selected: color.id }) }}
                             liclass="color-list-item"
-                        >{color.name}</ListItem>
+                        >
+                            {color.name}
+                        S</ListItem>
                 )
             })
         }

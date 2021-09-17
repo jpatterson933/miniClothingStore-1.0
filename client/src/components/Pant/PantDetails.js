@@ -1,18 +1,22 @@
 import React, { Component } from "react";
 import { graphql } from "react-apollo";
+// Queries
 import { getPantQuery } from "../../queries/queries";
+
+// Componenets
+import { DetailsCard } from '../Card/DetailsCard';
 
 class PantDetails extends Component {
     displayPantDetails() {
         const { pant } = this.props.data;
         if (pant) {
             return (
-                <div>
-                    <p>{pant.pantType}</p>
-                    <p>{pant.color.name}</p>
-                    <p>{pant.size.name}</p>
-                    <p>{pant.upc}</p>
-                </div>
+                <DetailsCard
+                    clothingtype={pant.pantType}
+                    color={pant.color.name}
+                    size={pant.size.name}
+                    upc={pant.upc}                
+                />
             )
         }
     }
