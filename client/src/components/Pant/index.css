@@ -1,0 +1,20 @@
+.pant-list-div{
+    padding: 8px;
+}
+
+.pant-list-ul{
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: white;
+}
+
+.pant-list-item {
+    width: 25%;
+    display: inline-block;
+    font-size: 18px;
+    text-align: center;
+    background-color: black;
+    color: aquamarine;
+    padding: 1px;
+    margin: 5px 5px;
+}

@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 //query
 import { getColorsQuery } from '../../queries/queries';
+// Style Sheet
+import './index.css';
 // components
 import { ListItem } from '../List';
 import { LoadingMessage } from '../Loading';
@@ -14,15 +16,19 @@ class ColorList extends Component {
             selected: null
         }
     }
-
     displayColors() {
-        var data = this.props.data;
+        let data = this.props.data;
+        
         if (data.loading) {
             return ( <LoadingMessage /> )
         } else {
             return data.colors.map(color => {
                 return (
-                    <ListItem key={color.id} onClick={(e) => { this.setState({ selected: color.id }) }}>{color.name}</ListItem>
+                        <ListItem 
+                            key={color.id} 
+                            onClick={(e) => { this.setState({ selected: color.id }) }}
+                            liclass="color-list-item"
+                        >{color.name}</ListItem>
                 )
             })
         }
@@ -30,8 +36,8 @@ class ColorList extends Component {
 
     render() {
         return (
-            <div>
-                <ul id="color-list">
+            <div className="color-list-div">
+                <ul className="color-list-ul">
                     {this.displayColors()}
                 </ul>
                 {/* <ColorDetails colorId={this.state.selected} /> */}

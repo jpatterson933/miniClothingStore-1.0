@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 //queries
 import { getTshirtsQuery } from '../../queries/queries';
+// Style Sheets
+import './index.css';
 // components
 import TshirtDetails from './TshirtDetails';
 import { ListItem } from '../List';
@@ -23,7 +25,13 @@ class TshirtList extends Component {
         } else {
             return data.tshirts.map(tshirt => {
                 return (
-                    <ListItem key={tshirt.id} onClick={(e) => { this.setState({ selected: tshirt.id }) }}>{tshirt.shirtType}</ListItem>
+                    <ListItem
+                    key={tshirt.id}
+                    onClick={(e) => { this.setState({ selected: tshirt.id }) }}
+                    liclass="shirt-list-item"
+                >
+                    {tshirt.shirtType}
+                </ListItem>
                 )
             })
         }

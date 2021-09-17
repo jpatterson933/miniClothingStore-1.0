@@ -3,6 +3,6 @@ import './index.css';
 
 export const ListItem = (props) => {
     return (
-        <li className="clothing-list" {...props}></li>
+            <li className={props.liclass} {...props}></li>
     )
 }
