@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 // helps us bind apollo to react
 import { graphql } from 'react-apollo';
 import { flowRight as compose } from 'lodash';
+
+// Queries
 import { getSizeColorQuery, addPantMutation, getPantsQuery } from '../../queries/queries';
 
 // SECOND we bind the query we have constructed to our component

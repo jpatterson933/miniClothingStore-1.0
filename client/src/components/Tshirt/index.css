@@ -18,3 +18,13 @@
     padding: 1px;
     margin: 5px 5px;
 }
+
+#add-tshirt{
+    background-color: black;
+    color: aquamarine;
+    text-align: right;
+    width: fit-content;
+    padding: 8px;
+    border: 3px aquamarine solid;
+    box-shadow: 0px 0px 5px 1px black;
+}
