@@ -1,0 +1,14 @@
+.app-descript {
+    background-color: black;
+    color: aquamarine;
+    padding: 1px 0px 5px 13px;
+}
+
+.info {
+    background-color: black;
+    color: aquamarine;
+    padding: 16px;
+    border: 1px aquamarine solid;
+    box-shadow: 0px 0px 2px 5px black;
+
+}

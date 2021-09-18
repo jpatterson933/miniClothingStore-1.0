@@ -221,6 +221,7 @@ const Mutation = new GraphQLObjectType({
         },
         addSize: {
             type: SizeType,
+            description: 'Add a size',
             args: {
                 name: { type: GraphQLNonNull(GraphQLString) }
             },
@@ -233,6 +234,7 @@ const Mutation = new GraphQLObjectType({
         },
         addColor: {
             type: ColorType,
+            description: 'Add a color',
             args: {
                 name: { type: GraphQLNonNull(GraphQLString) }
             },
